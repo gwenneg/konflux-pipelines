@@ -4,5 +4,16 @@
   "tekton": {
     "includePaths": ["pipelines/**"],
     "schedule": ["at any time"]
-  }
+  },
+  "packageRules": [
+    {
+      // Named actions only: an action runs code in CI. Digest-only updates stay manual:
+      // a moved tag with no version change is what a hijacked action looks like.
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "matchDepNames": ["fullsend-ai/fullsend"],
+      "automerge": true,
+      "groupName": "GitHub Actions"
+    }
+  ]
 }
